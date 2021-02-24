@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class UserAlreadyExistsAdvice {
     @ResponseBody
     @ExceptionHandler(UserAlreadyExistsException.class)
-    @ResponseStatus(HttpStatus.IM_USED)
+    @ResponseStatus(HttpStatus.CONFLICT)
     String employeeNotFoundHandler(UserAlreadyExistsException ex) {
         return ex.getMessage();
     }
