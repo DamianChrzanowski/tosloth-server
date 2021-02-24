@@ -29,6 +29,9 @@ public class UserController {
 
     @PostMapping("/users")
     User registerUser(@RequestBody User newUser) {
+        if (repository.findUserByNickname(newUser.getNickname()).isEmpty())
+            throw new IllegalStateException("User already exists");
+
         return repository.save(newUser);
     }
 
