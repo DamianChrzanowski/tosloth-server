@@ -6,18 +6,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
 @Document(collection = "Users")
-class User {
+public class User {
 
     @Id
     private String id;
-    private String name;
+    private String nickname;
+    private String firstname;
     private String lastname;
     private String email;
 
     public User() {}
 
-    User(String name, String lastname, String email) {
-        this.name = name;
+    public User(String nickname, String firstname, String lastname, String email) {
+        this.nickname = nickname;
+        this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
     }
@@ -30,12 +32,20 @@ class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastname() {
@@ -61,17 +71,16 @@ class User {
         if (!(o instanceof User))
             return false;
         User employee = (User) o;
-        return Objects.equals(this.id, employee.id) && Objects.equals(this.name, employee.name)
-                && Objects.equals(this.lastname, employee.lastname);
+        return Objects.equals(this.id, employee.id) && Objects.equals(this.nickname, employee.nickname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name, this.lastname);
+        return Objects.hash(this.id, this.nickname);
     }
 
     @Override
     public String toString() {
-        return "Employee: {" + "id=" + this.id + ", name='" + this.name + '\'' + ", role='" + this.lastname + '\'' + '}';
+        return "Employee: {" + "id=" + this.id + ", name='" + this.nickname + '\'' + ", role='" + this.lastname + '\'' + '}';
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-class UserController {
+public class UserController {
 
     private final UserRepository repository;
 
@@ -22,31 +22,30 @@ class UserController {
     // Aggregate root
     // tag::get-aggregate-root[]
     @GetMapping("/users")
-    List<User> all() {
+    List<User> getAllUsers() {
         return repository.findAll();
     }
     // end::get-aggregate-root[]
 
     @PostMapping("/users")
-    User newEmployee(@RequestBody User newEmployee) {
-        return repository.save(newEmployee);
+    User registerUser(@RequestBody User newUser) {
+        return repository.save(newUser);
     }
 
     // Single item
 
     @GetMapping("/users/{id}")
-    User one(@PathVariable String id) {
-
+    User getUserById(@PathVariable String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @PutMapping("/users/{id}")
-    User replaceEmployee(@RequestBody User newEmployee, @PathVariable String id) {
+    User replaceUser(@RequestBody User newEmployee, @PathVariable String id) {
 
         return repository.findById(id)
                 .map(employee -> {
-                    employee.setName(newEmployee.getName());
+                    employee.setNickname(newEmployee.getNickname());
                     employee.setLastname(newEmployee.getLastname());
                     return repository.save(employee);
                 })
